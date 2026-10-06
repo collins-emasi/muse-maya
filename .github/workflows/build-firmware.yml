@@ -20,9 +20,9 @@ jobs:
         run: |
           docker run --rm \
             -v ${{ github.workspace }}:/workspace \
-            -w /workspace/muse-gadget-sdk/esp32 \
             espressif/idf:v6.0.1 \
             sh -c '
+              cd /workspace/muse-gadget-sdk/esp32
               rm -rf build
               mkdir build
               cp sdkconfig.defaults build/sdkconfig
