@@ -31,3 +31,13 @@ cmake-build-debug/
 node_modules/
 package-lock.json
 yarn.lock
+
+# ========================
+# Firmware Build Artifacts
+# ========================
+# Binaries are too large for git; they're uploaded to GitHub Releases
+firmware-build-*/
+firmware/t-display-s3/build-*/
+*.bin
+*.elf
+build/
