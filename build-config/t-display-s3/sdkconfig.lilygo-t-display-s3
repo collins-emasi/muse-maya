@@ -109,3 +109,10 @@ CONFIG_PM_PROFILING=n
 # Muse Gadget SDK Token
 # ========================
 CONFIG_GADGET_SDK_TOKEN="mgst_bhfCfcSEEOrt96Kou_FoHP91BtFpMOnbSb95ZAUPbe0"
+
+# ========================
+# Muse LED Backend Configuration
+# ========================
+# T-Display-S3 uses the display for LED status indication
+# We use the ST7789 display backend (similar to ideaspark configuration)
+CONFIG_HOMEHUB_LED_BACKEND_IDEASPARK_ST7789=y
