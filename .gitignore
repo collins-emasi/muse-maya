@@ -1,0 +1,33 @@
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+build/
+dist/
+*.pyc
+__pycache__/
+*.egg-info/
+
+# Muse/ESP-IDF specific
+.muse/
+.muse-code/
+sdkconfig.old
+cmake-build-debug/
+
+# Session/temporary files
+*.tmp
+.session
+
+# Environment
+.env
+.env.local
+
+# Node (if used)
+node_modules/
+package-lock.json
+yarn.lock
