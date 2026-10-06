@@ -66,6 +66,7 @@ CONFIG_BT_CTRL_BLE_MAX_SYNC_CONN=1
 # ========================
 # Gadget SDK Settings
 # ========================
+CONFIG_MUSE_BOARD_LILYGO_T_DISPLAY_S3=y
 CONFIG_GADGET_SDK_ENABLED=y
 CONFIG_GADGET_SDK_EXAMPLE_ENABLED=y
 
