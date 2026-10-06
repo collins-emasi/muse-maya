@@ -1,0 +1,111 @@
+# T-Display-S3 Board Configuration
+# LilyGO T-Display-S3 with ESP32-S3 Dual-Core
+# Display: 1.9" 320x170 IPS LCD (ST7789)
+# Memory: 16MB Flash, 8MB PSRAM
+# Connectivity: Wi-Fi + BLE
+
+# =====================
+# ESP32-S3 Target Config
+# =====================
+CONFIG_IDF_TARGET="esp32s3"
+CONFIG_IDF_TARGET_ESP32S3=y
+
+# ========================
+# Memory Configuration
+# ========================
+CONFIG_ESPTOOLPY_FLASHMODE_DIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_40M=y
+CONFIG_ESPTOOLPY_FLASHSIZE_16MB=y
+CONFIG_ESPTOOLPY_FLASH_SAMPLE_MODE_STM=y
+
+# PSRAM Configuration
+CONFIG_SPIRAM=y
+CONFIG_SPIRAM_MODE_QUAD=y
+CONFIG_SPIRAM_SPEED_40M=y
+CONFIG_SPIRAM_SIZE_8MB=y
+CONFIG_SPIRAM_MEMTEST_PATTERN=y
+
+# Partition Table for OTA Updates
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# ========================
+# GPIO & Peripheral Config
+# ========================
+# UART0 (Serial)
+CONFIG_UART0_ENABLED=y
+CONFIG_CONSOLE_UART_NUM=0
+CONFIG_CONSOLE_UART_BAUDRATE=115200
+
+# SPI for Display
+CONFIG_SPI2_HOST=y
+
+# Display GPIO Pins (ST7789)
+# Adjust these to match your T-Display-S3 pinout
+CONFIG_LCD_GPIO_CS=10
+CONFIG_LCD_GPIO_DC=8
+CONFIG_LCD_GPIO_MOSI=3
+CONFIG_LCD_GPIO_CLK=6
+CONFIG_LCD_GPIO_RST=9
+
+# Backlight GPIO
+CONFIG_LCD_GPIO_BL=38
+
+# ========================
+# Wireless Configuration
+# ========================
+CONFIG_ESP_WIFI_ENABLED=y
+CONFIG_ESP32_WIFI_RX_BUFFER_NUM=10
+CONFIG_ESP32_WIFI_TX_BUFFER_NUM=10
+
+CONFIG_BT_ENABLED=y
+CONFIG_BTDM_CTRL_MODE_BLE_ONLY=y
+CONFIG_BT_CTRL_BLE_MAX_ACL_CONN=1
+CONFIG_BT_CTRL_BLE_MAX_SYNC_CONN=1
+
+# ========================
+# Gadget SDK Settings
+# ========================
+CONFIG_GADGET_SDK_ENABLED=y
+CONFIG_GADGET_SDK_EXAMPLE_ENABLED=y
+
+# Storage for pairing info
+CONFIG_GADGET_STORAGE_PARTITION_SIZE=262144  # 256KB
+
+# ========================
+# Build & Debug Options
+# ========================
+CONFIG_LOG_DEFAULT_LEVEL=3
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+
+# Optimization for speed
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+# Enable debugging if needed (comment out for production)
+# CONFIG_ESP_SYSTEM_PANIC_PRINT_HALT=y
+# CONFIG_ESP_DEBUG_STUBS_ENABLE=y
+
+# ========================
+# Display/Graphics Libraries
+# ========================
+# LVGL (Light and Versatile Graphics Library) - optional
+# CONFIG_LV_CONF_SKIP=y
+# CONFIG_LV_MEMCPY_MEMSET_STD=y
+
+# ========================
+# Security
+# ========================
+CONFIG_SECURE_BOOT=n  # Set to y for production
+CONFIG_SECURE_FLASH_ENCRYPTION=n  # Set to y for production
+
+# ========================
+# Power Management
+# ========================
+CONFIG_PM_ENABLE=y
+CONFIG_PM_DFS_INIT_AUTO=y
+CONFIG_PM_PROFILING=n
+
+# ========================
+# Muse Gadget SDK Token
+# ========================
+CONFIG_GADGET_SDK_TOKEN="mgst_bhfCfcSEEOrt96Kou_FoHP91BtFpMOnbSb95ZAUPbe0"
