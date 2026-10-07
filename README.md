@@ -1,68 +1,54 @@
-# Muse - Maya
+# Standard T-Display-S3 SDK support
 
-Building custom gadgets and integrations with the **Meta Muse Gadget SDK**.
+Muse Gadget SDK port for the **standard LilyGO T-Display-S3, 1.9-inch ST7789V
+LCD**: 320×170 landscape, 8-bit I80, ESP32-S3R8, 16 MB flash and 8 MB octal
+PSRAM. The avatar/text and USER menu were physically confirmed working.
 
-This project is separate from the original Maya Bot project and focuses on Muse-based IoT device development and integration.
+## Build and flash this project
 
-## Project Structure
+Requires ESP-IDF **v6.0.1**. From this directory:
 
-- **muse-gadget-sdk/** - Submodule containing the official Meta Muse Gadget SDK
-  - `esp32/` - ESP32 firmware and device SDK
-  - `linux/` - Linux device SDK
-  - `skills/` - Pre-built Muse agent skills
-
-## Getting Started
-
-### Prerequisites
-
-- macOS or Linux
-- USB cable with data transfer capability
-- [Muse Code](https://developer.meta.com/ai/lp/muse-code/) installed:
-  ```bash
-  curl -fsSL https://dev.meta.ai/install.sh | sh
-  ```
-- An SDK token from [gadgets.muse.ai](https://gadgets.muse.ai/settings/sdk-tokens)
-- The Muse app on your phone
-
-### Supported Hardware
-
-- **ESP32-C5 DevKitC-1** (recommended - works out of the box)
-- **Waveshare ESP32-S3 AMOLED**
-- Other ESP32-compatible boards (requires device-specific config)
-
-### Quick Start with Muse Code
-
-```bash
-cd muse-gadget-sdk/esp32
-muse --disable-sandbox
+```sh
+git submodule update --init --recursive
+./build-t-display-s3.sh
+./flash-t-display-s3.sh /dev/cu.usbmodem1101 24:58:7c:d3:96:30 --dry-run
+./flash-t-display-s3.sh /dev/cu.usbmodem1101 24:58:7c:d3:96:30
 ```
 
-Then ask Muse Code:
-- "Build this firmware for my [board] and flash it"
-- "Watch the serial log and tell me when it's ready to pair"
+The port can change after reconnecting. The second argument is this identified
+board's MAC; verify another board's identity before using it. The flash helper
+checks hardware, preserves the existing partition layout, makes a full private
+backup and verifies the written files. Pairing/NVS are preserved.
 
-For more details, see [muse-gadget-sdk/esp32/README.md](muse-gadget-sdk/esp32/README.md) and [muse-gadget-sdk/esp32/AGENTS.md](muse-gadget-sdk/esp32/AGENTS.md).
+The current build is `muse-gadget-sdk/esp32/build-t-display-s3-audited/`.
+Credentials remain in ignored `build-config/t-display-s3/sdkconfig.private`.
+Recovery backups and raw verification logs remain in ignored, local-only
+`audit-evidence/`; they are excluded from Git because captures and generated
+configs can contain provisioning data. Shared results are in the audit below.
 
-## Development
+BOOT/GPIO0 selects and confirms pairing; USER/GPIO14 opens/advances the menu.
+This standard board has no audio or touch. Battery operation, physical
+sleep/wake and production OTA remain unverified.
 
-All development tasks and AI-driven building happens through Muse Code and the AGENTS.md specifications in the submodule. The AI can:
+## Share the SDK port
 
-- Build firmware for different ESP32 boards
-- Flash devices over USB
-- Monitor serial logs
-- Add hardware support
-- Customize UI and functionality
+[Download the support ZIP](dist/t-display-s3-sdk-support-v0.1.0.zip).
+It contains one complete SDK patch, an installer, one consolidated
+[README](dist/t-display-s3-sdk-support-v0.1.0/README.md), license notices and
+checksums. It excludes credentials, firmware binaries and private backups.
 
-## Documentation
+Release templates live in `support/t-display-s3/`; the packaging helper is
+`tools/package-t-display-s3.py`. The release uses the SDK's generic fresh-board
+layout. This already provisioned project's compatibility layout remains local.
 
-- [Muse Gadget SDK README](muse-gadget-sdk/README.md)
-- [ESP32 Firmware Guide](muse-gadget-sdk/esp32/README.md)
-- [Agent Capabilities](muse-gadget-sdk/esp32/AGENTS.md)
+## Verification and reference
 
-## License
+```sh
+python3 tools/test-verify-t-display-s3.py
+python3 tools/test-sdk-t-display-s3.py
+```
 
-This project includes the official Muse Gadget SDK which is licensed under the Apache License 2.0. See [muse-gadget-sdk/LICENSE](muse-gadget-sdk/LICENSE) for details.
-
----
-
-**Note:** Built by hackers, for hackers, just for fun. Flashing custom firmware can brick boards and void warranties. Proceed at your own risk!
+The detailed hardware comparison, call trace, findings and measured results
+are in [T_DISPLAY_S3_AUDIT.md](T_DISPLAY_S3_AUDIT.md).
+Upstream SDK instructions remain in [its ESP32 README](muse-gadget-sdk/esp32/README.md).
+The SDK's Apache-2.0 license and LilyGO's MIT notice are preserved.

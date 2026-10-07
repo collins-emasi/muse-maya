@@ -8,7 +8,9 @@
 
 # Build artifacts
 build/
-dist/
+dist/*
+!dist/t-display-s3-sdk-support-v0.1.0.zip
+!dist/t-display-s3-sdk-support-v0.1.0.zip.sha256
 *.pyc
 __pycache__/
 *.egg-info/
@@ -41,3 +43,8 @@ firmware/t-display-s3/build-*/
 *.bin
 *.elf
 build/
+
+build-config/t-display-s3/sdkconfig.private
+
+# Raw captures, generated configs and flash backups may contain provisioning data.
+/audit-evidence/

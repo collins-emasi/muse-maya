@@ -1,0 +1,7 @@
+Muse Gadget SDK source retains the upstream Apache-2.0 license and copyright notices.
+
+The panel initialization parameters are derived from LilyGO display_s3.c,
+Copyright (c) 2024 Shenzhen Xinyuan Electronic Technology Co., Ltd.,
+author Lewis He. The vendor repository license is MIT, Copyright (c) 2024 TTGO.
+The complete MIT permission notice is in licenses/LilyGO-MIT.txt and the
+SDK overlay board notice. No vendor schematic/datasheet PDF is redistributed.
